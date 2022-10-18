@@ -1,8 +1,8 @@
 import React, { createContext, useReducer } from 'react';
 import { initialState, reducer } from './reducer';
 
-export const DispatchContext = createContext();
-export const TodoContext = createContext();
+export const DispatchContext = createContext(() => {});
+export const TodoContext = createContext([]);
 
 const ReduxProvider = ({children}) => {
     const [todos, dispatch] = useReducer(reducer, initialState)
