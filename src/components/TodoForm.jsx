@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import { DispatchContext, TodoContext } from "../state/DispatchProvider";
+import { DispatchContext } from "../state/DispatchProvider";
 import { ACTIONS } from "../state/reducer"
 import TodoList from "./TodoList";
 
