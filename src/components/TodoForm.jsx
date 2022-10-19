@@ -1,27 +1,22 @@
-import { useContext, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import { DispatchContext } from "../state/DispatchProvider";
 import { ACTIONS } from "../state/reducer"
 import TodoList from "./TodoList";
 
 const TodoForm = () => {
-
-    const [pendingTodo, setPendingTodo] = useState("")
+    const todoInputRef = useRef();
     const dispatch = useContext(DispatchContext);
-    
-    const handleChange = (e) => {
-      setPendingTodo(e.target.value);
-    }
   
     const handleSubmit = (e) => {
       e.preventDefault()
-      dispatch({type: ACTIONS.ADD_TODO, payload: pendingTodo})
-      setPendingTodo("")
+      dispatch({type: ACTIONS.ADD_TODO, payload: todoInputRef.current.value})
+      todoInputRef.current.value = ""
     }
   
     return (
       <div>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <input type="text" value={pendingTodo} onChange={(e) => {handleChange(e)}}></input>
+          <input type="text" ref={todoInputRef}></input>
           <button type="submit">Add Todo</button>
         </form>
         <TodoList />
