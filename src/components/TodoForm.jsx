@@ -1,5 +1,5 @@
-import { useContext, useRef, useState } from "react"
-import { DispatchContext } from "../state/DispatchProvider";
+import { useContext, useRef } from "react"
+import { DispatchContext, TodoContext } from "../state/DispatchProvider";
 import { ACTIONS } from "../state/reducer"
 import TodoList from "./TodoList";
 
@@ -7,10 +7,11 @@ const TodoForm = () => {
     const todoInputRef = useRef();
     const filterInputRef = useRef();
     const dispatch = useContext(DispatchContext);
+    const todoState = useContext(TodoContext);
   
     const handleSubmit = (e) => {
       e.preventDefault()
-      dispatch({type: ACTIONS.ADD_TODO, payload: todoInputRef.current.value})
+      dispatch({type: ACTIONS.ADD_TODO, payload: {todoName: todoInputRef.current.value, dispatch}})
       todoInputRef.current.value = ""
     }
 
@@ -27,6 +28,11 @@ const TodoForm = () => {
           <br />
           <input type="text" ref={todoInputRef}></input>
           <button type="submit">Add Todo</button>
+          {
+            todoState.error && (
+              <div>{todoState.error}</div>
+            )
+          }
         </form>
         <TodoList />
       </div>
