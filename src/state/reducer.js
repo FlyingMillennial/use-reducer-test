@@ -8,6 +8,7 @@ export const ACTIONS = {
 }
 
 export const reducer = (todoState, action) => {
+    console.log("In the reducer")
     switch(action.type) {
 
         case ACTIONS.PERSIST_TODO_SUCCESS:
@@ -27,8 +28,8 @@ export const reducer = (todoState, action) => {
 
         case ACTIONS.TOGGLE_TODO:
             todoState.todos = todoState.todos.map((todo) => {
-                if (todo.id === action.payload) {
-                    todo.done = !todo.done
+                if (todo.id === action.payload.id) {
+                    todo.done = action.payload.done
                 }
                 return todo;
             });

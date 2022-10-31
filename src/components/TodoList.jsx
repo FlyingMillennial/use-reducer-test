@@ -6,8 +6,13 @@ const TodoList = () => {
     const todoState = useContext(TodoContext);
     const dispatch = useContext(DispatchContext);
 
-    const handleClick = (id) => {
-        dispatch({type: ACTIONS.TOGGLE_TODO, payload: id})
+    const handleClick = (id, done) => {
+        console.log("In the click function")
+        const payload = {
+          id,
+          done, 
+        }
+        dispatch({type: ACTIONS.TOGGLE_TODO, payload})
       }
     
     const handleDelete = (id) => {
@@ -24,7 +29,7 @@ const TodoList = () => {
         <ul>
             {getFilteredTodos().map((todo) => {
               return (
-                <li onClick={() => {handleClick(todo.id)}} key={todo.id}>{todo.name} {todo.done ? 'DONE' : 'NOT DONE'} 
+                <li onClick={() => {handleClick(todo.id, !todo.done)}} key={todo.id}>{todo.name} {todo.done ? 'DONE' : 'NOT DONE'} 
                     <button onClick={() => {handleDelete(todo.id)}}>DELETE</button>
                 </li>
               );
